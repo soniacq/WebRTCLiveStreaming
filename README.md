@@ -13,7 +13,7 @@ npm install
 ## 2. Start the WebSocket Server
 
 Run the following command to start the WebSocket server.  
-This will start the signaling server on `ws://localhost:8080`:
+This will start the signaling server on `ws://<server-ip>:8080`:
 
 ```bash
 npm start
@@ -22,7 +22,7 @@ npm start
 ## 3. Serve the Application
 
 Use a simple HTTP server to serve the `index.html` file.  
-This will start a local HTTP server. Note the URL it provides (e.g., `http://127.0.0.1:8081`):
+This will start a local HTTP server. Note the URL it provides (e.g., `http://<server-ip>:8081`):
 
 ```bash
 npx http-server .
@@ -30,7 +30,7 @@ npx http-server .
 
 ## 4. Open the Application in Two Browsers
 
-Open the provided URL (e.g., `http://127.0.0.1:8081`) in your browsers.
+Open the provided URL (e.g., `http://<server-ip>:8081`) in your browsers.
 
 - In the **first browser** (Broadcaster), click **"Start Streaming"** to start the stream.  
   The `sample.mp4` video should start streaming, and the local video will be displayed in the `localVideo` element.
