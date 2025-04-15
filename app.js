@@ -9,7 +9,28 @@ const peerConnection = new RTCPeerConnection({
     ]
 });
 
-const socket = new WebSocket('ws://localhost:8080');
+const socket = new WebSocket('ws://<server-ip>:8080');
+
+// Queue to store messages until the WebSocket is open
+const messageQueue = [];
+
+// Handle WebSocket open event
+socket.onopen = () => {
+    console.log('WebSocket connection established');
+    // Send any queued messages
+    while (messageQueue.length > 0) {
+        socket.send(messageQueue.shift());
+    }
+};
+
+function sendMessage(message) {
+    if (socket.readyState === WebSocket.OPEN) {
+        socket.send(message);
+    } else {
+        console.warn('WebSocket not open. Queuing message:', message);
+        messageQueue.push(message);
+    }
+}
 
 socket.onmessage = async (event) => {
     const message = JSON.parse(event.data);
@@ -22,7 +43,9 @@ socket.onmessage = async (event) => {
         await peerConnection.setLocalDescription(answer);
 
         console.log('Sending answer:', answer);
-        socket.send(JSON.stringify({ type: 'answer', answer }));
+        // socket.send(JSON.stringify({ type: 'answer', answer }));
+        const tempMessage = JSON.stringify({ type: 'answer', answer });
+        sendMessage(tempMessage);
     } else if (message.type === 'answer') {
         console.log('Received answer:', message.answer);
         if (peerConnection.signalingState === 'have-local-offer') {
@@ -39,7 +62,9 @@ socket.onmessage = async (event) => {
 peerConnection.onicecandidate = (event) => {
     if (event.candidate) {
         console.log('Sending ICE candidate:', event.candidate);
-        socket.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));
+        // socket.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));
+        const tempMessage =JSON.stringify({ type: 'candidate', candidate: event.candidate });
+        sendMessage(tempMessage);
     }
 };
 
@@ -87,7 +112,9 @@ startButton.addEventListener('click', async () => {
         await peerConnection.setLocalDescription(offer);
 
         console.log('Created offer:', offer);
-        socket.send(JSON.stringify({ type: 'offer', offer })); // Send offer to signaling server
+        // socket.send(JSON.stringify({ type: 'offer', offer })); // Send offer to signaling server
+        const tempMessage =JSON.stringify({ type: 'offer', offer });
+        sendMessage(tempMessage);
     };
 
     document.body.appendChild(videoElement); // Append the video element to ensure it loads

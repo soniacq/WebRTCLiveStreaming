@@ -1,5 +1,5 @@
 const WebSocket = require('ws');
-const server = new WebSocket.Server({ port: 8080 });
+const server = new WebSocket.Server({ port: 8080, host: '0.0.0.0' }); // Bind to all network interfaces
 
 server.on('connection', (socket) => {
     console.log('New client connected');
@@ -26,4 +26,4 @@ server.on('connection', (socket) => {
     });
 });
 
-console.log('WebSocket server is running on ws://localhost:8080');
+console.log('WebSocket server is running on ws://0.0.0.0:8080');
