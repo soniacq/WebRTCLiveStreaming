@@ -8,6 +8,7 @@ Navigate to the project directory and install the required packages:
 
 ```bash
 npm install
+```
 
 ## 2. Start the WebSocket Server
 
@@ -16,6 +17,7 @@ This will start the signaling server on `ws://localhost:8080`:
 
 ```bash
 npm start
+```
 
 ## 3. Serve the Application
 
@@ -24,6 +26,7 @@ This will start a local HTTP server. Note the URL it provides (e.g., `http://127
 
 ```bash
 npx http-server .
+```
 
 ## 4. Open the Application in Two Browsers
 
