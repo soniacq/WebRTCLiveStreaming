@@ -9,7 +9,8 @@ const peerConnection = new RTCPeerConnection({
     ]
 });
 
-const socket = new WebSocket('ws://<server-ip>:8080');
+// const socket = new WebSocket('ws://52.54.32.164:8080');
+const socket = new WebSocket('wss://webrtc.motionsync.io/ws');
 
 // Queue to store messages until the WebSocket is open
 const messageQueue = [];

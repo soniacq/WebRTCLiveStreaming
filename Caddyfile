@@ -1,0 +1,20 @@
+webrtc.motionsync.io {
+
+    root * C:/WebRTCLiveStreaming
+    file_server
+
+    reverse_proxy /ws {
+        to localhost:8080
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    log {
+        output file C:/WebRTCLiveStreaming/webrtc.log
+        format console
+    }
+
+    tls ag9489@nyu.edu
+}
