@@ -1,6 +1,7 @@
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
 const startButton = document.getElementById('startButton');
+const startButtonViewer = document.getElementById('startButtonViewer');
 
 const peerConnection = new RTCPeerConnection({
     iceServers: [
@@ -43,7 +44,27 @@ peerConnection.onicecandidate = (event) => {
 };
 
 peerConnection.ontrack = (event) => {
+    // console.log('ontrack VIDEO:', event);
+    // console.log(event.streams[0].getTracks()); // Should show audio/video tracks
+    // console.log(event.streams[0].getVideoTracks()); // Should show video tracks
     remoteVideo.srcObject = event.streams[0];
+    remoteVideo.muted = true; // Mute the video to allow autoplay
+
+    /*Error: NotAllowedError: play() failed because the user didn't interact with the document first
+    This error occurs when trying to play a video without user interaction. Modern browsers require user interaction (like a click) before allowing media playback. This is a security feature to prevent unwanted media from playing automatically.
+    Fix:
+    To resolve this issue, you can ensure the video is muted or wait for user interaction before attempting to play the video. You can also add a button to start the video playback after user interaction.
+    */
+   
+    // Uncomment the following lines to add a play button for remote video playback
+    // const playButton = document.createElement('button');
+    // playButton.textContent = 'Play Remote Video';
+    // playButton.addEventListener('click', () => {
+    //     remoteVideo.play().catch((error) => {
+    //         console.error('Error playing remote video:', error);
+    //     });
+    // });
+    // document.body.appendChild(playButton);
 };
 
 startButton.addEventListener('click', async () => {
