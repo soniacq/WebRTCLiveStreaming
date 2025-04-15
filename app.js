@@ -48,7 +48,7 @@ peerConnection.ontrack = (event) => {
 
 startButton.addEventListener('click', async () => {
     const videoElement = document.createElement('video');
-    videoElement.src = 'sample.mp4';
+    videoElement.src = 'sample3.mp4';
     videoElement.autoplay = true;
     videoElement.muted = true; // Ensure autoplay works by muting the video
     videoElement.playsInline = true; // For mobile compatibility
