@@ -1,0 +1,12 @@
+{
+  "name": "webrtc-livestreaming",
+  "version": "1.0.0",
+  "description": "A simple WebRTC live streaming application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.1"
+  }
+}
