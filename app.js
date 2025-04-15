@@ -52,6 +52,7 @@ startButton.addEventListener('click', async () => {
     videoElement.autoplay = true;
     videoElement.muted = true; // Ensure autoplay works by muting the video
     videoElement.playsInline = true; // For mobile compatibility
+    videoElement.title = 'Sample Video'; // Add a title to the video element
 
     videoElement.onloadeddata = async () => {
         const stream = videoElement.captureStream();
